@@ -23,6 +23,7 @@
 #define DEVICE_H
 
 #if defined (INTERFACE_K20D5) \
+    || defined (INTERFACE_K22D5) \
     || defined (INTERFACE_K26F) \
     || defined (INTERFACE_KL26Z) \
     || defined (INTERFACE_KL27Z) \

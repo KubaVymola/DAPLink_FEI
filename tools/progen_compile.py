@@ -102,6 +102,8 @@ if args.release:
     version_git_dir = os.path.join(daplink_dir, "source", "daplink")
     generate_version_file(version_git_dir)
 
+print(1)
+
 # Build the project(s)
 cores = get_core_count() if args.parallel else 1
 projects = args.projects if len(args.projects) > 0 else project_list
@@ -126,6 +128,8 @@ for p_name in projects:
                 failed = True
         if failed and not args.ignore_failures:
             exit(-1)
+
+print(2)
 
 # Generate images with boardid / familyid for supported configurations
 if args.release or args.supported:
@@ -156,6 +160,8 @@ if args.release or args.supported:
             for (boardid, familyid) in id_map[project]:
                 logger.debug("Building image for %s (%s, %s)" % (project, boardid, familyid))
                 post_build_script(hex, crc, boardid, familyid)
+
+print(3)
 
 # Build release package
 if args.release:

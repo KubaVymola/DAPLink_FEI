@@ -32,6 +32,8 @@
 #include "cortex_m.h"
 #include "sdk.h"
 #include "target_board.h"
+#include "blinking.h"
+
 
 //default msc led settings
 #ifndef MSC_LED_DEF
@@ -128,6 +130,7 @@ void USBD_SignalHandler()
     osThreadFlagsSet(main_task_id, FLAGS_MAIN_PROC_USB);
 }
 
+
 void main_task(void * arg)
 {
     // State processing
@@ -169,7 +172,7 @@ void main_task(void * arg)
                         | FLAGS_MAIN_PROC_USB       // process usb events
                         , osFlagsWaitAny,
                         osWaitForever);
-
+        
         if (flags & FLAGS_MAIN_PROC_USB) {
             USBD_Handler();
         }
@@ -204,7 +207,7 @@ void main_task(void * arg)
                     break;
 
                 case MAIN_USB_CONNECTING:
-
+                    // LED_CONNECTED_GPIO->PTOR = 1UL << LED_CONNECTED_BIT;
                     // Wait before connecting
                     if (DECZERO(usb_state_count) == 0) {
                         usbd_connect(1);
@@ -232,6 +235,8 @@ void main_task(void * arg)
 
         // 30mS tick used for flashing LED when USB is busy
         if (flags & FLAGS_MAIN_30MS) {
+            // toggle_LED();
+
             if (msc_led_usb_activity) {
 
                 if ((msc_led_state == MAIN_LED_FLASH) || (msc_led_state == MAIN_LED_FLASH_PERMANENT)) {
@@ -278,11 +283,13 @@ int main(void)
                 (*(uint32_t *)(g_board_info.target_cfg->flash_regions[0].start + 4)));
     }
 
+
     // config the usb interface descriptor and web auth token before USB connects
     //unique_string_auth_config();
     // either the rst pin was pressed or we have an empty app region
     osKernelInitialize();                 // Initialize CMSIS-RTOS
     osThreadNew(main_task, NULL, NULL);    // Create application main thread
     osKernelStart();                      // Start thread execution
+    
     for (;;) {}
 }

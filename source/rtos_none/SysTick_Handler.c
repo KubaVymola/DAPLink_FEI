@@ -21,6 +21,7 @@
 
 #include "SysTick_Handler.h"
 #include "device.h"
+#include "gpio.h"
 
 //SysTick Timer Configuration
 #ifndef OS_CLOCK
@@ -43,6 +44,16 @@ static osTimerFunc_t sysTickCb = NULL;
 static uint32_t tickFreq = 0;
 static osThreadFunc_t mainFuncCb = NULL;
 
+static void busy_wait(uint32_t cycles)
+{
+    volatile uint32_t i;
+    i = cycles;
+
+    while (i > 0) {
+        i--;
+    }
+}
+
 void sysTickInit(void)
 {
     tick_counter = 0;
@@ -61,6 +72,7 @@ void SysTick_Handler(void)
         sysTickCb(NULL);
     }
     tick_counter++;
+
     if(wait_counter){
         --wait_counter;
     }
@@ -92,6 +104,7 @@ void sysTickEvtSet(uint32_t flag)
 uint32_t sysTickEvtWaitOr(uint32_t flag)
 {
     uint32_t return_flags=0;
+    // This is where I am
     while ((flag&event_flags)==0);
     return_flags = event_flags;
     __disable_irq();

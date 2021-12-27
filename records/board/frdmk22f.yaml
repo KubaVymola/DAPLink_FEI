@@ -4,4 +4,4 @@ common:
             - source/board/frdmk22f.c
         family:
             - source/family/freescale/k22f/target.c
-            - source/family/freescale/target_reset_Kseries.c
+            - source/family/freescale/target_reset_Kseri es.c

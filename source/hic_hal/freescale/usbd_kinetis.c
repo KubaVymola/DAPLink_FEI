@@ -25,6 +25,7 @@
 #include "util.h"
 #include "string.h"
 #include "hic_init.h"
+#include "blinking.h"
 
 #define __NO_USB_LIB_C
 #include "usb_config.c"
@@ -163,10 +164,9 @@ void USBD_Init(void)
             ((USBD_P_SOF_Event   != 0) ? USB_INTEN_SOFTOKEN_MASK : 0) |
             ((USBD_P_Error_Event != 0) ? USB_INTEN_ERROREN_MASK  : 0) ;
 #endif
-    USB0->USBCTRL  = USB_USBCTRL_PDE_MASK;/* pull dawn on D+ and D-             */
+    // USB0->USBCTRL  = USB_USBCTRL_PDE_MASK;/* pull dawn on D+ and D-             */
     USB0->USBTRC0 |= (1 << 6);            /* bit 6 must be set to 1             */
 }
-
 
 /*
  *  USB Device Connect Function
@@ -177,13 +177,32 @@ void USBD_Init(void)
 
 void USBD_Connect(BOOL con)
 {
+    // if (USB0->OBSERVE & 0x80) {
+    //     my_blink(100, 3);
+    // } else {
+    //     my_blink(500, 3);
+    // }
+
+    // busy_wait_ms(500);
+
     if (con) {
-        USB0->CTL  |= USB_CTL_USBENSOFEN_MASK;            /* enable USB           */
-        USB0->CONTROL = USB_CONTROL_DPPULLUPNONOTG_MASK;  /* pull up on D+        */
+        USB0->CTL       |= USB_CTL_USBENSOFEN_MASK;            /* enable USB           */
+        USB0->CONTROL   = USB_CONTROL_DPPULLUPNONOTG_MASK;  /* pull up on D+        */
+        // USB0->OTGCTL    = 0x84;
+        // my_blink(500, 3);
+
     } else {
         USB0->CTL  &= ~USB_CTL_USBENSOFEN_MASK;           /* disable USB          */
         USB0->CONTROL &= ~USB_CONTROL_DPPULLUPNONOTG_MASK;/* pull down on D+      */
     }
+
+    // busy_wait_ms(500);
+
+    // if (USB0->OBSERVE & 0x80) {
+    //     my_blink(100, 3);
+    // } else {
+    //     my_blink(500, 3);
+    // }
 }
 
 

@@ -23,6 +23,7 @@
 #include "rl_usb.h"
 #include "usb_for_lib.h"
 #include "info.h"
+#include "gpio.h"
 
 U16 USBD_DeviceStatus;
 U8 USBD_DeviceAddress;
@@ -37,12 +38,13 @@ U8 USBD_ZLP;
 USBD_EP_DATA USBD_EP0Data;
 USB_SETUP_PACKET USBD_SetupPacket;
 
+// #define __RTX
+
 #ifdef __RTX
 OS_TID USBD_RTX_DevTask;            /* USB Device Task ID */
 OS_TID USBD_RTX_EPTask[16];         /* USB Endpoint Task ID's */
 OS_TID USBD_RTX_CoreTask;           /* USB Core Task ID */
 #endif
-
 
 
 
@@ -100,6 +102,7 @@ void usbd_reset_core(void)
 
 BOOL usbd_configured(void)
 {
+
     if (USBD_Configuration) {
         return (__TRUE);
     }
@@ -491,7 +494,6 @@ static inline BOOL USBD_ReqGetConfiguration(void)
     return (__TRUE);
 }
 
-
 /*
  *  Set Configuration USB Device Request
  *    Parameters:      None
@@ -732,6 +734,7 @@ static inline BOOL USBD_ReqSetInterface(void)
 
 void USBD_EndPoint0(U32 event)
 {
+
     if (event & USBD_EVT_SETUP) {
         USBD_SetupStage();
         USBD_DirCtrlEP(USBD_SetupPacket.bmRequestType.Dir);
@@ -827,6 +830,7 @@ void USBD_EndPoint0(U32 event)
                         break;
 
                     case USB_REQUEST_SET_CONFIGURATION:
+
                         if (!USBD_ReqSetConfiguration()) {
                             goto stall;
                         }
@@ -1038,7 +1042,6 @@ stall_i:
  *    Parameters:      none
  *    Return Value:    none
  */
-
 #ifdef __RTX
 void USBD_RTX_EndPoint0(void)
 {

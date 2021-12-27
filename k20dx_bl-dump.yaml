@@ -1,0 +1,485 @@
+common:
+  build_dir: build
+  debugger: null
+  export_dir: ''
+  includes: &id001
+  - source/usb
+  - source/daplink
+  - source/daplink/bootloader
+  - source/cmsis-core
+  - source/hic_hal
+  - source/hic_hal/cmsis-driver
+  - source/daplink/drag-n-drop
+  - source/daplink/settings
+  - source/target/
+  - source/rtos_none
+  - source/hic_hal/freescale/k20dx
+  - source/hic_hal/freescale/k20dx/MK20D5
+  linker_file: ''
+  macros: &id002
+  - DAPLINK_VERSION=256
+  - MSC_ENDPOINT
+  - DAPLINK_BL
+  - DAPLINK_BUILD_KEY=0x9B939D93
+  - DRAG_N_DROP_SUPPORT
+  - OS_TICK=10000
+  - INTERFACE_K20D5
+  - CPU_MK20DX128VFM5
+  - DAPLINK_HIC_ID=0x97969900
+  - FLASH_SSD_CONFIG_ENABLE_FLEXNVM_SUPPORT=0
+  - FLASH_DRIVER_IS_FLASH_RESIDENT=1
+  - DAPLINK_NO_ASSERT_FILENAMES
+  - OS_CLOCK=48000000
+  - __PROGRAM_START
+  - __PROGRAM_START
+  misc: {}
+  name: k20dx_bl
+  output_type: exe
+  sources: &id003
+  - usb:
+    - source/usb/usbd_core.c
+  - usb:
+    - source/usb/msc
+  - daplink_bl:
+    - source/daplink
+    - source/daplink/bootloader
+  - drag-n-drop:
+    - source/daplink/drag-n-drop
+  - settings:
+    - source/daplink/settings/settings.c
+  - settings:
+    - source/daplink/settings/settings_rom_stub.c
+  - target:
+    - source/target/target_board.c
+    - source/target/target_default.c
+  - rtos:
+    - source/rtos_none
+  - fsl_flash_driver:
+    - source/hic_hal/freescale/iap
+    hic_hal:
+    - source/hic_hal/freescale
+    - source/hic_hal/freescale/k20dx
+    - source/hic_hal/freescale/k20dx/MK20D5
+  - board:
+    - source/board/k20dx_bl.c
+  target: mk20dx128xxx5
+  template: []
+  tools_supported: &id004 []
+merged:
+  build_dir: build
+  debugger: null
+  export_dir: ''
+  include_files:
+    default:
+    - ../../../source/usb/usb_webusb.h
+    - ../../../source/usb/usb_def.h
+    - ../../../source/usb/usbd_lib_cdc.h
+    - ../../../source/usb/usbd_cdc.h
+    - ../../../source/usb/usbd_hid.h
+    - ../../../source/usb/usbd_core.h
+    - ../../../source/usb/usbd_lib_hid.h
+    - ../../../source/usb/usbd_desc.h
+    - ../../../source/usb/usb_msc.h
+    - ../../../source/usb/usbd_hw.h
+    - ../../../source/usb/usbd_core_msc.h
+    - ../../../source/usb/usb_lib.h
+    - ../../../source/usb/usbd_core_webusb.h
+    - ../../../source/usb/usbd_event.h
+    - ../../../source/usb/usb_bulk.h
+    - ../../../source/usb/usbd_core_winusb.h
+    - ../../../source/usb/usbd_cdc_acm.h
+    - ../../../source/usb/usbd_lib_msc.h
+    - ../../../source/usb/usbd_msc.h
+    - ../../../source/usb/usb_for_lib.h
+    - ../../../source/usb/usb.h
+    - ../../../source/usb/rl_usb.h
+    - ../../../source/usb/usb_cdc.h
+    - ../../../source/usb/usbd_core_cdc.h
+    - ../../../source/usb/usb_winusb.h
+    - ../../../source/usb/usbd_core_hid.h
+    - ../../../source/usb/usb_hid.h
+    - ../../../source/daplink/error.h
+    - ../../../source/daplink/RTE_Components.h
+    - ../../../source/daplink/compiler.h
+    - ../../../source/daplink/version_git.h
+    - ../../../source/daplink/cortex_m.h
+    - ../../../source/daplink/crc.h
+    - ../../../source/daplink/circ_buf.h
+    - ../../../source/daplink/daplink.h
+    - ../../../source/daplink/bootloader.h
+    - ../../../source/daplink/daplink_defaults.h
+    - ../../../source/daplink/util.h
+    - ../../../source/daplink/daplink_debug.h
+    - ../../../source/daplink/validation.h
+    - ../../../source/daplink/info.h
+    - ../../../source/daplink/bootloader/main_bootloader.h
+    - ../../../source/cmsis-core/cachel1_armv7.h
+    - ../../../source/cmsis-core/core_cm7.h
+    - ../../../source/cmsis-core/tz_context.h
+    - ../../../source/cmsis-core/core_cm3.h
+    - ../../../source/cmsis-core/cmsis_compiler.h
+    - ../../../source/cmsis-core/cmsis_armclang.h
+    - ../../../source/cmsis-core/core_cm35p.h
+    - ../../../source/cmsis-core/mpu_armv7.h
+    - ../../../source/cmsis-core/cmsis_armcc.h
+    - ../../../source/cmsis-core/core_cm4.h
+    - ../../../source/cmsis-core/core_cm0.h
+    - ../../../source/cmsis-core/cmsis_iccarm.h
+    - ../../../source/cmsis-core/core_armv81mml.h
+    - ../../../source/cmsis-core/core_armv8mml.h
+    - ../../../source/cmsis-core/core_sc000.h
+    - ../../../source/cmsis-core/core_cm55.h
+    - ../../../source/cmsis-core/core_cm1.h
+    - ../../../source/cmsis-core/mpu_armv8.h
+    - ../../../source/cmsis-core/core_sc300.h
+    - ../../../source/cmsis-core/cmsis_gcc.h
+    - ../../../source/cmsis-core/cmsis_version.h
+    - ../../../source/cmsis-core/pmu_armv8.h
+    - ../../../source/cmsis-core/core_cm23.h
+    - ../../../source/cmsis-core/core_cm33.h
+    - ../../../source/cmsis-core/core_cm0plus.h
+    - ../../../source/cmsis-core/core_armv8mbl.h
+    - ../../../source/cmsis-core/cmsis_armclang_ltm.h
+    - ../../../source/hic_hal/adc.h
+    - ../../../source/hic_hal/FlashOS.h
+    - ../../../source/hic_hal/FlashPrg.h
+    - ../../../source/hic_hal/device.h
+    - ../../../source/hic_hal/read_uid.h
+    - ../../../source/hic_hal/flash_hal.h
+    - ../../../source/hic_hal/uart.h
+    - ../../../source/hic_hal/gpio.h
+    - ../../../source/hic_hal/sdk.h
+    - ../../../source/hic_hal/flash_blob.h
+    - ../../../source/hic_hal/cmsis-driver/Driver_Common.h
+    - ../../../source/hic_hal/cmsis-driver/Driver_USART.h
+    - ../../../source/daplink/drag-n-drop/flash_intf.h
+    - ../../../source/daplink/drag-n-drop/file_stream.h
+    - ../../../source/daplink/drag-n-drop/virtual_fs.h
+    - ../../../source/daplink/drag-n-drop/vfs_user.h
+    - ../../../source/daplink/drag-n-drop/flash_decoder.h
+    - ../../../source/daplink/drag-n-drop/flash_manager.h
+    - ../../../source/daplink/drag-n-drop/vfs_manager.h
+    - ../../../source/daplink/drag-n-drop/intelhex.h
+    - ../../../source/daplink/settings/settings.h
+    - ../../../source/target/target_family.h
+    - ../../../source/target/target_config.h
+    - ../../../source/target/target_board.h
+    - ../../../source/rtos_none/SysTick_Handler.h
+    - ../../../source/rtos_none/cmsis_os2.h
+    - ../../../source/hic_hal/freescale/k20dx/hic_init.h
+    - ../../../source/hic_hal/freescale/k20dx/daplink_addr.h
+    - ../../../source/hic_hal/freescale/k20dx/IO_Config.h
+    - ../../../source/hic_hal/freescale/k20dx/DAP_config.h
+    - ../../../source/hic_hal/freescale/k20dx/MK20D5/system_MK20D5.h
+    - ../../../source/hic_hal/freescale/k20dx/MK20D5/MK20D5.h
+    - ../../../source/hic_hal/freescale/k20dx/MK20D5/MK20D5_features.h
+    - ../../../source/hic_hal/freescale/k20dx/MK20D5/fsl_device_registers.h
+  include_paths:
+  - ../../../source/usb
+  - ../../../source/daplink
+  - ../../../source/daplink/bootloader
+  - ../../../source/cmsis-core
+  - ../../../source/hic_hal
+  - ../../../source/hic_hal/cmsis-driver
+  - ../../../source/daplink/drag-n-drop
+  - ../../../source/daplink/settings
+  - ../../../source/target
+  - ../../../source/rtos_none
+  - ../../../source/hic_hal/freescale/k20dx
+  - ../../../source/hic_hal/freescale/k20dx/MK20D5
+  includes: *id001
+  linker_file: ../../../source/hic_hal/freescale/kinetis.ld
+  macros: *id002
+  misc:
+    common_flags:
+    - -Wa,-adln=$@.lst
+    - -Os
+    - -g3
+    - -Werror
+    - -ffunction-sections
+    - -fdata-sections
+    - -std=gnu99
+    - -fshort-wchar
+    - -fno-common
+    - -ffreestanding
+    - -fverbose-asm
+    - -mno-unaligned-access
+    ld_flags: &id005
+    - --specs=nano.specs
+    - --specs=nosys.specs
+    - -Wl,-check-sections
+    - -Wl,-fatal-warnings
+    - -Wl,--gc-sections
+    - -Wl,--no-wchar-size-warning
+    - -Wl,--print-memory-usage
+    libraries: &id006
+    - m
+    - gcc
+    - c
+    - nosys
+    post_build_script: &id007
+    - tools/post_build_script_gcc.py
+    pre_build_script: &id008
+    - tools/pre_build_script.py
+  name: k20dx_bl
+  output_dir:
+    path: projectfiles/make_gcc_arm/k20dx_bl
+    rel_count: 3
+    rel_path: ../../../
+  output_type: exe
+  singular: true
+  source_files_c:
+    board:
+    - ../../../source/board/k20dx_bl.c
+    daplink_bl:
+    - ../../../source/daplink/HardFault_Handler.c
+    - ../../../source/daplink/circ_buf.c
+    - ../../../source/daplink/cortex_m.c
+    - ../../../source/daplink/crc32.c
+    - ../../../source/daplink/bootloader/daplink.c
+    - ../../../source/daplink/daplink_debug.c
+    - ../../../source/daplink/error.c
+    - ../../../source/daplink/flash_hal.c
+    - ../../../source/daplink/info.c
+    - ../../../source/daplink/bootloader/main_bootloader.c
+    - ../../../source/daplink/sdk_stub.c
+    - ../../../source/daplink/util.c
+    - ../../../source/daplink/validation.c
+    drag-n-drop:
+    - ../../../source/daplink/drag-n-drop/file_stream.c
+    - ../../../source/daplink/drag-n-drop/flash_decoder.c
+    - ../../../source/daplink/drag-n-drop/flash_intf.c
+    - ../../../source/daplink/drag-n-drop/flash_manager.c
+    - ../../../source/daplink/drag-n-drop/iap_flash_intf.c
+    - ../../../source/daplink/drag-n-drop/intelhex.c
+    - ../../../source/daplink/drag-n-drop/vfs_manager.c
+    - ../../../source/daplink/drag-n-drop/vfs_user.c
+    - ../../../source/daplink/drag-n-drop/virtual_fs.c
+    fsl_flash_driver:
+    - ../../../source/hic_hal/freescale/iap/FlashDev.c
+    - ../../../source/hic_hal/freescale/iap/FlashPrg.c
+    - ../../../source/hic_hal/freescale/iap/fsl_flash.c
+    hic_hal:
+    - ../../../source/hic_hal/freescale/k20dx/gpio.c
+    - ../../../source/hic_hal/freescale/k20dx/hic_init.c
+    - ../../../source/hic_hal/freescale/k20dx/read_uid.c
+    - ../../../source/hic_hal/freescale/k20dx/MK20D5/system_MK20D5.c
+    - ../../../source/hic_hal/freescale/k20dx/uart.c
+    - ../../../source/hic_hal/freescale/k20dx/usb_config.c
+    - ../../../source/hic_hal/freescale/usbd_kinetis.c
+    rtos:
+    - ../../../source/rtos_none/SysTick_Handler.c
+    - ../../../source/rtos_none/cmsis_os2_port.c
+    settings:
+    - ../../../source/daplink/settings/settings.c
+    - ../../../source/daplink/settings/settings_rom_stub.c
+    target:
+    - ../../../source/target/target_board.c
+    - ../../../source/target/target_default.c
+    usb:
+    - ../../../source/usb/usbd_core.c
+    - ../../../source/usb/msc/usbd_core_msc.c
+    - ../../../source/usb/msc/usbd_msc.c
+  source_files_cpp: {}
+  source_files_lib: {}
+  source_files_obj: {}
+  source_files_s:
+    hic_hal:
+    - ../../../source/hic_hal/freescale/k20dx/gcc/startup_MK20D5.S
+  source_paths:
+  - ../../../source/usb
+  - ../../../source/usb/msc
+  - ../../../source/daplink
+  - ../../../source/daplink/bootloader
+  - ../../../source/daplink/drag-n-drop
+  - ../../../source/daplink/settings
+  - ../../../source/target
+  - ../../../source/rtos_none
+  - ../../../source/hic_hal/freescale
+  - ../../../source/hic_hal/freescale/k20dx
+  - ../../../source/hic_hal/freescale/k20dx/MK20D5
+  - ../../../source/hic_hal/freescale/iap
+  - ../../../source/board
+  - ../../../source/hic_hal/freescale/k20dx/gcc
+  sources: *id003
+  target: mk20dx128xxx5
+  template: []
+  tools_supported: *id004
+tool_specific:
+  armcc:
+    build_dir: build
+    debugger: null
+    export_dir: ''
+    includes: []
+    linker_file: source/daplink/daplink.sct
+    macros:
+    - __PROGRAM_START
+    misc:
+      asm_flags:
+      - -g
+      - --no_unaligned_access
+      c_flags:
+      - -O2
+      - -Ospace
+      - --gnu
+      - --c99
+      - --asm
+      - --split_sections
+      - --interleave
+      - -g
+      - --no_unaligned_access
+      ld_flags:
+      - --bestdebug
+      - --summary_stderr
+      - --load_addr_map_info
+      - --xref
+      - --callgraph
+      - --symbols
+      - --info summarysizes,sizes,totals,unused,veneers
+      - --predefine=-DDAPLINK_BL
+      post_build_script:
+      - tools/post_build_script_armcc.py
+      pre_build_script:
+      - tools/pre_build_script.py
+    name: k20dx_bl
+    output_type: exe
+    sources:
+    - hic_hal:
+      - source/hic_hal/freescale/k20dx/armcc
+    target: ''
+    template: []
+    tools_supported: []
+  armclang:
+    build_dir: build
+    debugger: null
+    export_dir: ''
+    includes: []
+    linker_file: source/daplink/daplink.ac6.sct
+    macros:
+    - __PROGRAM_START
+    misc:
+      asm_flags:
+      - -g
+      - -x assembler-with-cpp
+      - -masm=auto
+      - -Wa,armasm,--no_unaligned_access
+      c_flags:
+      - --target=arm-arm-none-eabi
+      - -Oz
+      - -g
+      - --std=c99
+      - -fdata-sections
+      - -ffunction-sections
+      - -fno-builtin
+      - -fshort-enums
+      - -fshort-wchar
+      - -funsigned-char
+      - -masm=auto
+      - -nostdlib
+      - -Wall
+      - -Wno-error=cpp
+      - -Warmcc-pragma-thumb
+      - -Wno-ignored-optimization-argument
+      - -Wno-unused-command-line-argument
+      - -mno-unaligned-access
+      common_flags:
+      - -mfpu=none
+      cpp_flags:
+      - --target=arm-arm-none-eabi
+      ld_flags:
+      - --bestdebug
+      - --summary_stderr
+      - --info=summarysizes,sizes,totals,unused,veneers
+      - --load_addr_map_info
+      - --xref
+      - --callgraph
+      - --symbols
+      post_build_script:
+      - tools/post_build_script_armclang.py
+      pre_build_script:
+      - tools/pre_build_script.py
+    name: k20dx_bl
+    output_type: exe
+    sources:
+    - hic_hal:
+      - source/hic_hal/freescale/k20dx/armcc
+    target: ''
+    template: []
+    tools_supported: []
+  gcc_arm:
+    build_dir: build
+    debugger: null
+    export_dir: ''
+    includes: []
+    linker_file: source/hic_hal/freescale/kinetis.ld
+    macros:
+    - __PROGRAM_START
+    misc:
+      common_flags:
+      - -Os
+      - -g3
+      - -Werror
+      - -ffunction-sections
+      - -fdata-sections
+      - -std=gnu99
+      - -fshort-wchar
+      - -fno-common
+      - -ffreestanding
+      - -fverbose-asm
+      - -mno-unaligned-access
+      ld_flags: *id005
+      libraries: *id006
+      post_build_script: *id007
+      pre_build_script: *id008
+    name: k20dx_bl
+    output_type: exe
+    sources:
+    - hic_hal:
+      - source/hic_hal/freescale/k20dx/gcc
+    target: ''
+    template: []
+    tools_supported: []
+  make_gcc_arm:
+    build_dir: build
+    debugger: null
+    export_dir: ''
+    includes: []
+    linker_file: ''
+    macros: []
+    misc:
+      common_flags:
+      - -Wa,-adln=$@.lst
+    name: k20dx_bl
+    output_type: exe
+    sources: []
+    target: ''
+    template: []
+    tools_supported: []
+  uvision:
+    build_dir: build
+    debugger: null
+    export_dir: ''
+    includes:
+    - projectfiles/uvision/k20dx_bl/build
+    linker_file: source/daplink/daplink.sct
+    macros: []
+    misc:
+      asm_flags:
+      - -g
+      c_flags:
+      - --gnu
+      - --asm
+      - --interleave
+      - -g
+      ld_flags:
+      - --bestdebug
+      - --predefine=-DDAPLINK_BL
+      - --predefine="-I..\..\..\source\hic_hal\freescale\k20dx"
+    name: k20dx_bl
+    output_type: exe
+    sources:
+    - hic_hal:
+      - source/hic_hal/freescale/k20dx/armcc
+    target: ''
+    template: []
+    tools_supported: []
