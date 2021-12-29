@@ -1,9 +1,9 @@
 /**
- * @file    flexio_pwm.h
- * @brief
+ * @file    mimxrt1170_evk.c
+ * @brief   board ID for the NXP MIMXRT1170-EVK board.
  *
  * DAPLink Interface Firmware
- * Copyright 2020 NXP
+ * Copyright (c) 2020 - 2021 NXP, All Rights Reserved
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -18,23 +18,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-#ifndef FLEXIO_PWM_H_
-#define FLEXIO_PWM_H_
 
-#include "IO_Config.h"
+#include "target_board.h"
+#include "target_family.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-void flexio_pwm_init(void);
-void flexio_pwm_init_pins(void);
-void flexio_pwm_deinit_pins(void);
-void flexio_pwm_set_dutycycle(uint8_t duty);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* FLEXIO_PWM_H_ */
+const board_info_t g_board_info = {
+    .info_version = kBoardInfoVersion,
+    .board_id = "0244",
+    .family_id = kNXP_Mimxrt_FamilyID,
+    .flags = kEnablePageErase,
+    .daplink_url_name = "PRODINFOHTM",
+    .daplink_drive_name = "RT1170-EVK",
+    .daplink_target_url = "http://www.nxp.com/imxrt1170evk",
+    .target_cfg = &target_device,
+    .board_vendor = "NXP",
+    .board_name = "MIMXRT1170-EVK",
+};
