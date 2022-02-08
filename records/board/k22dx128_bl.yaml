@@ -1,0 +1,4 @@
+common:
+    sources:
+        board:
+            - source/board/k22dx128_bl.c

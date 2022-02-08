@@ -32,6 +32,7 @@
 #include "cortex_m.h"
 #include "sdk.h"
 #include "target_board.h"
+#include "blinking.h"
 
 //default msc led settings
 #ifndef MSC_LED_DEF
@@ -212,6 +213,8 @@ void main_task(void * arg)
 
                     // Wait before connecting
                     if (DECZERO(usb_state_count) == 0) {
+                        // busy_wait_ms(10000);
+                        
                         usbd_connect(1);
                         usb_state = MAIN_USB_CHECK_CONNECTED;
                     }
@@ -220,6 +223,8 @@ void main_task(void * arg)
 
                 case MAIN_USB_CHECK_CONNECTED:
                     if (usbd_configured()) {
+                        // my_blink(5, 100);
+
                         usb_state = MAIN_USB_CONNECTED;
                     }
 
@@ -237,6 +242,8 @@ void main_task(void * arg)
 
         // 30mS tick used for flashing LED when USB is busy
         if (flags & FLAGS_MAIN_30MS) {
+            toggle_LED();
+
             if (msc_led_usb_activity) {
 
                 if ((msc_led_state == MAIN_LED_FLASH) || (msc_led_state == MAIN_LED_FLASH_PERMANENT)) {

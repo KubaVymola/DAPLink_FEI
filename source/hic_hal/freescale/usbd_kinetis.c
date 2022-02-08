@@ -25,6 +25,7 @@
 #include "util.h"
 #include "string.h"
 #include "hic_init.h"
+#include "blinking.h"
 
 #define __NO_USB_LIB_C
 #include "usb_config.c"
@@ -177,13 +178,46 @@ void USBD_Init(void)
 
 void USBD_Connect(BOOL con)
 {
+    // if (USB0->OBSERVE & 0x80) {
+    //     my_blink(100, 3);
+    // } else {
+    //     my_blink(500, 3);
+    // }
+
+    // busy_wait_ms(1000);
+
+    // if (USB0->OBSERVE & 0x40) {
+    //     my_blink(100, 2);
+    // } else {
+    //     my_blink(500, 2);
+    // }
+
     if (con) {
         USB0->CTL  |= USB_CTL_USBENSOFEN_MASK;            /* enable USB           */
+        USB0->CTL  &= ~(0x08);                            /* disable host mode    */
         USB0->CONTROL = USB_CONTROL_DPPULLUPNONOTG_MASK;  /* pull up on D+        */
+        // USB0->OTGCTL &= ~(USB_OTGCTL_DPLOW_MASK);         /* Disable D+ pulldown  */
+        // USB0->USBCTRL &= ~(USB_USBCTRL_PDE_MASK);
     } else {
         USB0->CTL  &= ~USB_CTL_USBENSOFEN_MASK;           /* disable USB          */
         USB0->CONTROL &= ~USB_CONTROL_DPPULLUPNONOTG_MASK;/* pull down on D+      */
     }
+
+    // busy_wait_ms(500);
+
+    // if (USB0->OBSERVE & 0x80) {
+    //     my_blink(100, 3);
+    // } else {
+    //     my_blink(500, 3);
+    // }
+
+    // busy_wait_ms(1000);
+
+    // if (USB0->OBSERVE & 0x40) {
+    //     my_blink(100, 2);
+    // } else {
+    //     my_blink(500, 2);
+    // }
 }
 
 
